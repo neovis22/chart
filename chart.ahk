@@ -736,8 +736,8 @@ class Charter extends Charter.Box {
                     yLabelRenderer.height := rect.height
             }
             
-            if (columnAxis != "y" && yGridCount && (width := chart.xAxis.gridWidth)) {
-                if ((color := chart.xAxis.gridColor) == "")
+            if (columnAxis != "y" && yGridCount && (width := chart.yAxis.gridWidth)) {
+                if ((color := chart.yAxis.gridColor) == "")
                     color := chart.gridColor
                 
                 pen := Gdip_CreatePen(this.argb(color), width)
@@ -749,8 +749,8 @@ class Charter extends Charter.Box {
                 Gdip_DeletePen(pen)
             }
             
-            if (columnAxis != "x" && xGridCount && (width := chart.yAxis.gridWidth)) {
-                if ((color := chart.yAxis.gridColor) == "")
+            if (columnAxis != "x" && xGridCount && (width := chart.xAxis.gridWidth)) {
+                if ((color := chart.xAxis.gridColor) == "")
                     color := chart.gridColor
                 
                 pen := Gdip_CreatePen(this.argb(color), width)
