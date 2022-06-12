@@ -3,7 +3,6 @@
 
 SetBatchLines -1
 
-#Include <init>
 #Include <chart/chart>
 #Include <gdip_all/gdip_all>
 

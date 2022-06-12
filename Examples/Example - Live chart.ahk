@@ -14,9 +14,6 @@ chart.data(data := [], {radius:2, color:0x90D4D3})
 chart.yAxis.range(0, 100).grid(5)
 
 Gui Show
-Gui +Hwndhwnd -SysMenu
-Gui Show,, % " "
-SetWindowNoDrawIcon(hwnd)
 
 p := 50
 interval := 50
@@ -36,23 +33,4 @@ loop {
 
 guiClose() {
     exitapp
-}
-
-SetWindowNoDrawIcon(hwnd) {
-    return SetWindowThemeAttribute(hwnd, 6) ; WTNCA_NODRAWICON | WTNCA_NOSYSMENU
-}
-
-SetWindowThemeAttribute(hwnd, flag) {
-    /*
-        WTNCA Values:
-            WTNCA_NODRAWCAPTION := 1
-            WTNCA_NODRAWICON := 2
-            WTNCA_NOSYSMENU := 4
-            WTNCA_NOMIRRORHELP := 8
-    */
-    return DllCall("UxTheme\SetWindowThemeAttribute"
-        , "ptr",hwnd
-        , "int",1
-        , "int64*",flag | flag << 32 ; struct WTA_OPTIONS { DWORD dwFlags; DWORD dwMask; }
-        , "uint",8)
 }
