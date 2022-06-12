@@ -83,14 +83,6 @@ class Charter extends Charter.Box {
         
         for k, v in this.themes[theme]
             this[StrSplit(k, ".")*] := IsObject(v) ? v.clone() : v
-        
-        ; 셔플 팔레트
-        loop % length := this.palette.length() {
-            Random i, 1, length
-            temp := this.palette[a_index]
-            this.palette[a_index] := this.palette[i]
-            this.palette[i] := temp
-        }
         return this
     }
     
