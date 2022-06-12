@@ -5,9 +5,9 @@
 
 현재 테스트 및 개발중인 버전으로 사용시 많은 피드백 및 기여 부탁드립니다.
 
-![모든 차트](images/chart_all.png?raw=true)
-![레이블이 지정된 차트](images/labeled_chart.png?raw=true)
-![실시간 차트](images/live_chart.gif?raw=true)
+![모든 차트](Images/chart_all.png?raw=true)
+![레이블이 지정된 차트](Images/labeled_chart.png?raw=true)
+![실시간 차트](Images/live_chart.gif?raw=true)
 
 ## Installation
 
