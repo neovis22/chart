@@ -256,6 +256,7 @@ chart.data(data, {colors:[0xFF0000, 0xFF00, 0xFF]})
 - `chart.color` `rgb | argb`
 - `chart.backgroundColor` `rgb | argb`
 - `chart.gridColor` `rgb | argb`
+- `chart.bar.width`
 
 #### Dataset
 - `dataset.hwnd` 렌더링 대상인 `Static` 컨트롤의 핸들
