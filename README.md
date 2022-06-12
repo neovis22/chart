@@ -14,33 +14,25 @@
 #### 필수 라이브러리
 - [Gdip_All (AHKv2-Gdip)](https://github.com/mmikeww/AHKv2-Gdip)
 
-> 아래 방법으로 설치시 함께 설치됩니다.
+> Gdip_All 라이브러리는 포함되어 있습니다.
 
 ### 오토핫키 스크립트로 설치하는 방법
 아래 두가지 방법중 하나를 선택하여 설치하세요. 먼저 [git](https://git-scm.com/download/win)이 설치되어 있어야 합니다.
 
 #### 표준 라이브러리에 설치
 ```ahk
-RunWait % comspec " /c " "
-(join& ltrim
-    git clone https://github.com/neovis22/chart.git
-    git clone https://github.com/mmikeww/AHKv2-Gdip.git gdip_all
-)", % a_ahkPath "\..\Lib"
+RunWait % comspec " /c " git clone https://github.com/neovis22/chart.git", % a_ahkPath "\..\Lib"
 ```
 
 #### 로컬 라이브러리에 설치
 ```ahk
-RunWait % comspec " /c " "
-(join& ltrim
-    git clone https://github.com/neovis22/chart.git Lib/chart
-    git clone https://github.com/mmikeww/AHKv2-Gdip.git Lib/gdip_all
-)"
+RunWait % comspec " /c " git clone https://github.com/neovis22/chart.git Lib/chart"
 ```
 
 사용할 스크립트에 아래 코드를 추가하세요.
 ```ahk
 #Include <chart/chart>
-#include <gdip_all/gdip_all>
+#include <chart/gdip_all>
 
 OnExit(Func("Gdip_Shutdown").bind(Gdip_Startup())) ; Gdip 시작 및 종료시 해제
 ```

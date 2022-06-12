@@ -3,8 +3,8 @@
 
 SetBatchLines -1
 
-#Include <chart/chart>
-#Include <gdip_all/gdip_all>
+#Include %a_lineFile%/../../chart.ahk
+#Include %a_lineFile%/../../gdip_all.ahk
 
 OnExit(Func("Gdip_Shutdown").bind(Gdip_Startup()))
 
@@ -24,7 +24,6 @@ Gui Add, Edit, x+m w180 hp gupdate vdataCount, 5
 
 Gui Add, Text, xs w80 h22 0x200, Type
 for type in Charter.charts
-    ; BS_PUSHLIKE 0x1000
     Gui Add, Button, x+m hp gupdateType, % type
 
 Gui Add, Text, xs w80 h22 0x200
