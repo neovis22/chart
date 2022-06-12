@@ -59,6 +59,8 @@ class Charter extends Charter.Box {
             ; SS_BITMAP 0xE
             WinSet Style, +0xE, % "ahk_id" hwnd
         
+        this.bar := []
+        
         this.hwnd := hwnd
         this.type := type
         
@@ -288,13 +290,16 @@ class Charter extends Charter.Box {
         drawChart(g) {
             chart := this.parent
             rect := this.contentRect
+            barW := chart.bar.width
+            if (barW == "")
+                barW := 0.6
             
             for i, dataset in chart.datasets {
                 if (dataset.yKey != "")
                     keys := StrSplit(dataset.yKey, ".")
                 
                 size := this.isHorizontal ? rect.height/this.count : rect.width/this.count
-                margin := size*0.1
+                margin := barW < 1 ? size*(0.5-barW/2) : (size-barW*chart.datasets.count())/2
                 x := y := 0
                 w := h := (size-margin*2)/chart.datasets.count()
                 offset := margin+w*(a_index-1)
