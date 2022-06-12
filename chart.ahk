@@ -149,17 +149,23 @@ class Charter extends Charter.Box {
     }
     
     save(path, width="", height="", quality=100) {
-        if (width != "")
-            chart.width := width
-        if (height != "")
-            chart.height := height
+        w := this.width
+        h := this.height
         
-        pbm := Gdip_CreateBitmap(chart.width, chart.height)
+        if (width != "")
+            this.width := width
+        if (height != "")
+            this.height := height
+        
+        pbm := Gdip_CreateBitmap(this.width, this.height)
         pg := Gdip_GraphicsFromImage(pbm)
-        chart.render(pg)
+        this.render(pg)
         Gdip_SaveBitmapToFile(pbm, path, quality)
         Gdip_DeleteGraphics(pg)
         Gdip_DisposeImage(pbm)
+        
+        this.width := w
+        this.height := h
         return this
     }
     
