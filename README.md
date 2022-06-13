@@ -240,7 +240,8 @@ chart.data(data, {colors:[0xFF0000, 0xFF00, 0xFF]})
     - `type` `"Bar" | "BarH" | "BarV" | "Line" | "Pie" | "Doughnut" | "Scatter" | "Bubble"`
 - `chart.data(data, options: Dataset)`
 - `chart.grid([xCount], [yCount])`
-- `chart.theme(theme)`
+- `chart.theme(theme, paletteShuffle=false)`
+- `chart.shufflePalette()`
 - `chart.plot()`
 - `chart.type(type)`
 - `chart.render(pGraphics)`
