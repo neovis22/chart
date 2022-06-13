@@ -1312,7 +1312,7 @@ class Charter extends Charter.Box {
                 default:
                     throw Exception("invalid " this " arguments")
             }
-            return this
+            return self
         }
         
         argb(color) {
@@ -1413,7 +1413,7 @@ class Charter extends Charter.Box {
                 return this.y
             }
             set {
-                return value, this.height += this.y-value, this.y := value
+                return value, this.height := this.y+this.height-value, this.y := value
             }
         }
         
@@ -1422,7 +1422,7 @@ class Charter extends Charter.Box {
                 return this.x+this.width
             }
             set {
-                return value, this.width += value-this.x
+                return value, this.width := value-this.x
             }
         }
         
@@ -1440,7 +1440,7 @@ class Charter extends Charter.Box {
                 return this.x
             }
             set {
-                return value, this.width += this.x-value, this.x := value
+                return value, this.width := this.x+this.width-value, this.x := value
             }
         }
     }
