@@ -79,12 +79,25 @@ class Charter extends Charter.Box {
         return this.palette[++ this._paletteOffset]
     }
     
-    theme(theme) {
+    theme(theme, paletteShuffle=false) {
         if (!this.themes[theme])
             throw Exception("unknown theme: " theme)
         
         for k, v in this.themes[theme]
             this[StrSplit(k, ".")*] := IsObject(v) ? v.clone() : v
+        
+        if (paletteShuffle)
+            this.shufflePalette()
+        return this
+    }
+    
+    shufflePalette() {
+        loop % length := this.palette.length() {
+            Random i, 1, length
+            temp := this.palette[a_index]
+            this.palette[a_index] := this.palette[i]
+            this.palette[i] := temp
+        }
         return this
     }
     
