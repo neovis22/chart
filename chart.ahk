@@ -554,8 +554,6 @@ class Charter extends Charter.Box {
             
             render(g) {
                 rc := this.measure(g)
-                ; Gdip_FillRectangle(g, this.bgBrush, rc.x-5, rc.y-3, rc.width+10, rc.height+5)
-                ; Gdip_DrawRectangle(g, this.bgPen, rc.x-5, rc.y-3, rc.width+10, rc.height+5)
                 Gdip_FillRoundedRectangle(g, this.bgBrush, rc.x-5, rc.y-3, rc.width+10, rc.height+5, 3)
                 Gdip_DrawRoundedRectangle(g, this.bgPen, rc.x-5, rc.y-3, rc.width+10, rc.height+5, 3)
                 base.render(g)
