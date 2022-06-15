@@ -1056,7 +1056,7 @@ class Charter extends Charter.Box {
                         label.render(g, this.formatter.call(v))
                     }
                 } else {
-                    partWidth := rect.width/(count-1)
+                    partWidth := rect.width/Max(1, count-1)
                     label.width := partWidth
                     label.height := rect.height
                     for i, v in this.labels {
@@ -1079,7 +1079,7 @@ class Charter extends Charter.Box {
                         label.render(g, this.formatter.call(v))
                     }
                 } else {
-                    partHeight := rect.height/(count-1)
+                    partHeight := rect.height/Max(1, count-1)
                     label.width := rect.width
                     label.height := partHeight
                     for i, v in this.labels {
