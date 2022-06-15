@@ -671,6 +671,7 @@ class Charter extends Charter.Box {
                 yTitle.x := -this.bottom
                 yTitle.y := this.x
                 yTitle.width := rect.height
+                yTitle.height := this.width*0.3
                 yTitle.height := yTitle.measure(g).height+(yTitle.height-yTitle.contentRect.height)
                 this.left += yTitle.height
             }
