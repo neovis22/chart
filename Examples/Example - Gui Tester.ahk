@@ -74,12 +74,6 @@ Gui Add, UpDown, vyGrid gupdate
 Gui Add, Text, xm w600 h350 Hwndhwnd
 chart := chart(hwnd, "Line")
 
-; chart.border(5)
-; chart.title.margin(50)
-; chart.title.padding(50)
-chart.yAxis.label.padding(50)
-chart.xAxis.label.padding(50)
-
 Gui Show
 
 updateData()
