@@ -119,8 +119,15 @@ class Charter extends Charter.Box {
     }
     
     plot() {
-        if (this.hwnd == "")
-            throw Exception("target hwnd is empty")
+        if (this.hwnd == "" || !WinExist("ahk_id" this.hwnd)) {
+            width := this.width ? this.width : 600
+            height := this.height ? this.height : 400
+            Gui New, +LabelChartGui
+            Gui Margin, 0, 0
+            Gui Add, Text, % "xm w" width " h" height " +0xE Hwndhwnd"
+            this.hwnd := hwnd
+            Gui Show,, % this.title.text == "" ? "Chart" : this.title.text
+        }
         
         width := this.width
         height := this.height
@@ -1456,4 +1463,8 @@ class Charter extends Charter.Box {
             }
         }
     }
+}
+
+ChartGuiClose(hwnd) {
+    Gui % hwnd ":Destroy"
 }
