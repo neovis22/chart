@@ -236,7 +236,8 @@ chart.data(data, {colors:[0xFF0000, 0xFF00, 0xFF]})
 ### 클래스, 함수, 속성 및 객체
 
 #### Chart extends Box
-- `chart := chart(hwnd, type="bar")`
+- `chart := chart([hwnd], type="bar")`
+    - `hwnd` 렌더링 대상인 `Static` 컨트롤의 핸들
     - `type` `"Bar" | "BarH" | "BarV" | "Line" | "Pie" | "Doughnut" | "Scatter" | "Bubble"`
 - `chart.data(data, options: Dataset)`
 - `chart.grid([xCount], [yCount])`
@@ -260,7 +261,6 @@ chart.data(data, {colors:[0xFF0000, 0xFF00, 0xFF]})
 - `chart.bar.width`
 
 #### Dataset
-- `dataset.hwnd` 렌더링 대상인 `Static` 컨트롤의 핸들
 - `dataset.data` `array`
 - `dataset.color` `rgb | argb`
 - `dataset.colors` `[rgb | argb, ..]` 파이와 도넛을 위한 컬러배열
