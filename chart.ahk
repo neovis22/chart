@@ -73,6 +73,11 @@ class Charter extends Charter.Box {
         this.title.padding(8)
     }
     
+    __delete() {
+        if (this._hgui && WinExist("ahk_id" this._hgui))
+            Gui % this._hgui ":Destroy"
+    }
+    
     _color() {
         if (this._paletteOffset == this.palette.length())
             this._paletteOffset := 0
@@ -120,13 +125,17 @@ class Charter extends Charter.Box {
     
     plot() {
         if (this.hwnd == "" || !WinExist("ahk_id" this.hwnd)) {
+            defaultGui := a_defaultGui
+            defaultListView := a_defaultListView
+            defaultTreeView := a_defaultTreeView
             width := this.width ? this.width : 600
             height := this.height ? this.height : 400
-            Gui New, +LabelChartGui
+            
+            Gui New, +Hwndhwnd +LabelChartGui
+            this._hgui := hwnd
             Gui Margin, 0, 0
             Gui Add, Text, % "xm w" width " h" height " +0xE Hwndhwnd"
             this.hwnd := hwnd
-            Gui Show,, % this.title.text == "" ? "Chart" : this.title.text
         }
         
         width := this.width
@@ -155,6 +164,18 @@ class Charter extends Charter.Box {
         
         this.width := width
         this.height := height
+        
+        if (hwnd) {
+            Gui Show,, % this.title.text == "" ? "Chart" : this.title.text
+            
+            if (defaultGui) {
+                Gui % defaultGui ":Default"
+                if (defaultListView)
+                    Gui % defaultGui "ListView", % defaultListView
+                if (defaultTreeView)
+                    Gui % defaultGui "TreeView", % defaultTreeView
+            }
+        }
         return this
     }
     
