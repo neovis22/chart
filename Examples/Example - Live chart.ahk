@@ -8,6 +8,9 @@ SetBatchLines -1
 
 OnExit(Func("Gdip_Shutdown").bind(Gdip_Startup()))
 
+; https://www.autohotkey.com/boards/viewtopic.php?p=470991#p470991
+Gui +E0x2080000 ; doublebuffering
+
 Gui Add, Text, xm w600 h350 Hwndhwnd
 chart := chart(hwnd, "line")
 chart.data(data := [], {radius:2, color:0x90D4D3})
