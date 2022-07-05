@@ -123,6 +123,23 @@ class Charter extends Charter.Box {
         return this
     }
     
+    at(x, y) {
+        switch (this.type) {
+            case "Bar", "BarV", "BarH":
+                for i, elem in this.elements
+                    if (elem.x <= x && elem.y <= y && elem.x+elem.width >= x && elem.y+elem.height >= y)
+                        return elem.value
+            case "Line":
+                for i, elem in this.elements {
+                    dist := Sqrt(Abs(x-elem.x)**2+Abs(y-elem.y)**2)
+                    if (min == "" || min > dist)
+                        if ((min := dist) < 10)
+                            res := elem.value
+                }
+        }
+        return res
+    }
+    
     plot() {
         if (this.hwnd == "" || !WinExist("ahk_id" this.hwnd)) {
             defaultGui := a_defaultGui
@@ -182,6 +199,8 @@ class Charter extends Charter.Box {
     render(g) {
         if (!Charter.charts[this.type])
             throw Exception("unsupported type: " this.type)
+        
+        this.elements := []
         
         chart := new Charter.charts[this.type]
         chart.parent := this
@@ -352,9 +371,8 @@ class Charter extends Charter.Box {
                 offset := margin+w*(a_index-1)
                 
                 brush := Gdip_BrushCreateSolid(this.argb(dataset.color))
-                for i, v in dataset.data {
-                    if (keys)
-                        v := v[keys*]
+                for i, value in dataset.data {
+                    v := keys ? value[keys*] : value
                     if (this.isHorizontal) {
                         y := offset+size*(a_index-1)
                         w := (v-this.min.y)/this.range.y*rect.width
@@ -363,6 +381,7 @@ class Charter extends Charter.Box {
                         h := (v-this.min.y)/this.range.y*rect.height
                         y := rect.height-h
                     }
+                    chart.elements.push({x:rect.x+x, y:rect.y+y, width:w, height:h, value:value})
                     Gdip_FillRectangle(g, brush, rect.x+x, rect.y+y, w, h)
                     if (a_index == this.count)
                         break
@@ -396,17 +415,16 @@ class Charter extends Charter.Box {
                 
                 brush := Gdip_BrushCreateSolid(this.argb(dataset.color))
                 pen := Gdip_CreatePen(this.argb(dataset.color), width)
-                for i, v in dataset.data {
-                    if (keys)
-                        v := v[keys*]
-                    x1 := rect.x+size*(a_index-1)
-                    y1 := rect.y+rect.height-(v-this.min.y)/this.range.y*rect.height
+                for i, value in dataset.data {
+                    v := keys ? value[keys*] : value
+                    , x1 := rect.x+size*(a_index-1)
+                    , y1 := rect.y+rect.height-(v-this.min.y)/this.range.y*rect.height
+                    chart.elements.push({x:x1, y:y1, value:value})
                     if (radius)
                         Gdip_FillEllipse(g, brush, x1-radius, y1-radius, radius*2, radius*2)
                     if (a_index != 1)
                         Gdip_DrawLine(g, pen, x1, y1, x2, y2)
-                    x2 := x1
-                    y2 := y1
+                    x2 := x1, y2 := y1
                     if (a_index == this.count)
                         break
                 }
