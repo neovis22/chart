@@ -168,8 +168,6 @@ class Charter extends Charter.Box {
         
         pbm := Gdip_CreateBitmap(this.width, this.height)
         pg := Gdip_GraphicsFromImage(pbm)
-        Gdip_SetSmoothingMode(pg, 4)
-        Gdip_SetTextRenderingHint(pg, 4)
         
         this.render(pg)
         
@@ -219,7 +217,9 @@ class Charter extends Charter.Box {
         
         pbm := Gdip_CreateBitmap(this.width, this.height)
         pg := Gdip_GraphicsFromImage(pbm)
+        
         this.render(pg)
+        
         Gdip_SaveBitmapToFile(pbm, path, quality)
         Gdip_DeleteGraphics(pg)
         Gdip_DisposeImage(pbm)
@@ -626,9 +626,13 @@ class Charter extends Charter.Box {
             this.borderRight := chart.borderRight
             this.borderBottom := chart.borderBottom
             
+            Gdip_SetSmoothingMode(g, 0)
             brush := Gdip_BrushCreateSolid(this.argb(chart.backgroundColor))
             Gdip_FillRectangle(g, brush, chart.x, chart.y, chart.width, chart.height)
             Gdip_DeleteBrush(brush)
+            
+            Gdip_SetSmoothingMode(g, 4)
+            Gdip_SetTextRenderingHint(g, 4)
             
             if (chart.title.text != "")
                 title := chart.title
