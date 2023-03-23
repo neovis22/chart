@@ -447,9 +447,9 @@ class Charter extends Charter.Box {
                 brush := Gdip_BrushCreateSolid(this.argb(dataset.color))
                 for i, v in dataset.data {
                     x := Min(this.max.x, Max(this.min.x, v[xKey*]))
-                    yval := Min(this.max.y, Max(this.min.y, v[yKey*]))
+                    y := Min(this.max.y, Max(this.min.y, v[yKey*]))
                     x := rect.x+rect.width*(x-this.min.x)/this.range.x
-                    y := rect.y+rect.height*(yval-this.min.y)/this.range.y
+                    y := rect.y+rect.height-rect.height*(y-this.min.y)/this.range.y
                     Gdip_FillEllipse(g, brush, x-radius, y-radius, radius*2, radius*2)
                 }
                 Gdip_DeleteBrush(brush)
