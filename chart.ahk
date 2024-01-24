@@ -22,6 +22,7 @@ class Charter extends Charter.Box {
         Bubble: Charter.Bubble
         Pie: Charter.Pie
         Doughnut: Charter.Doughnut
+        Candlestick: Charter.Candlestick
     )}
     
     static themes := {
@@ -610,6 +611,49 @@ class Charter extends Charter.Box {
     class Doughnut extends Charter.Pie {
         
         isDoughnut := true
+    }
+    
+    class Candlestick extends Charter.ChartRenderer {
+        
+        drawChart(g) {
+            chart := this.parent
+            rect := this.contentRect
+            barW := chart.bar.width
+            if (barW == "")
+                barW := 0.6
+            
+            brStick := Gdip_BrushCreateSolid(0xFF000000)
+            brBullish := Gdip_BrushCreateSolid(this.argb(0x23B24C))
+            brBearish := Gdip_BrushCreateSolid(this.argb(0xEE1B24))
+            for i, dataset in chart.datasets {
+                if (dataset.yKey != "")
+                    keys := StrSplit(dataset.yKey, ".")
+                
+                size := this.isHorizontal ? rect.height/this.count : rect.width/this.count
+                margin := barW < 1 ? size*(0.5-barW/2) : (size-barW*chart.datasets.count())/2
+                x := y := 0
+                w := h := Min((size-margin*2)/chart.datasets.count(), 30)
+                stickW := 1
+                offset := margin+w*(a_index-1)
+                for i, v in dataset.data {
+                    x := offset+size*(a_index-1)
+                    h := (Abs(v[3]-v[4])-this.min.y)/this.range.y*rect.height
+                    y := rect.height-rect.height*(Max(v[3], v[4])-this.min.y)/this.range.y
+                    Gdip_FillRectangle(g, brStick, rect.x+x+w/2-stickW/2, rect.y+y, stickW, h)
+                    chart.elements.push({x:rect.x+x, y:rect.y+y, width:w, height:h, value:v})
+                    
+                    h := (Abs(v[1]-v[2])-this.min.y)/this.range.y*rect.height
+                    y := rect.height-rect.height*((Max(v[1], v[2])-this.min.y)/this.range.y)
+                    Gdip_FillRectangle(g, v[1] < v[2] ? brBullish : brBearish, rect.x+x, rect.y+y, w, h)
+                    if (a_index == this.count)
+                        break
+                }
+            }
+            Gdip_DeleteBrush(brStick)
+            Gdip_DeleteBrush(brBullish)
+            Gdip_DeleteBrush(brBearish)
+        }
+        
     }
     
     class ChartRenderer extends Charter.Box {
